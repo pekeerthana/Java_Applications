@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +25,9 @@ public class LoginService {
 
     public String login(LoginRequestDTO loginRequest){
         User user = userRepository.findByEmail(loginRequest.getEmail())
-                    .orElseThrow(() -> new UserNotFoundException("User not found with email: "+ loginRequest.getEmail()));
+                    .orElseThrow(() -> new BadCredentialsException("User not found with email: "+ loginRequest.getEmail()));
 
-        if(!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) throw new RuntimeException("Invalid credentials");
+        if(!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) throw new BadCredentialsException("Invalid credentials");
 
         return jwtUtil.generateToken(loginRequest.getEmail());
     }

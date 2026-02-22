@@ -14,6 +14,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "user_id")
     private Long id;
+
     @Column(nullable = false)
     @NotBlank(message = "name should not be blank")
     private String name;
@@ -61,6 +62,15 @@ public class User {
 
     public LocalDateTime getCreatedAt(){
         return createdAt;
+    }
+
+    public User(){};
+
+    public User(String name, String email, String password, Set<Role> roles) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
     }
 
     @ManyToMany(fetch = FetchType.LAZY)
