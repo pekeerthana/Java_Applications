@@ -19,17 +19,12 @@ import com.example.demo.respository.UserRepository;
 @Transactional
 public class UserServiceIntegrationTest {
 
-    private final UserService _userService;
-    private final UserRepository _userRepository;
-    private final PasswordEncoder _passwordEncoder;
-
     @Autowired
-    public UserServiceIntegrationTest(UserService userService,UserRepository userRepository, PasswordEncoder passwordEncoder){
-
-        _userRepository = userRepository;
-        _userService = userService;
-        _passwordEncoder = passwordEncoder;
-    }
+    private UserService _userService;
+    @Autowired
+    private UserRepository _userRepository;
+    @Autowired
+    private PasswordEncoder _passwordEncoder;
 
     @Test
     void shouldCreateUserSuccessfully(){
