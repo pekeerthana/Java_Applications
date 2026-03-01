@@ -37,9 +37,12 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter{
         String authHeader = request.getHeader("Authorization");
         System.out.println("Header "+authHeader);
         if(authHeader != null && authHeader.startsWith("Bearer ")){
+            
             String token = authHeader.substring(7);
+            System.out.println("Token valid: " + jwtUtil.tokenValidation(token));
             if(jwtUtil.tokenValidation(token)){
                 String email = jwtUtil.extractEmail(token);
+                System.out.println("Extracted email: " + email);
 
                 //fetch user
                 User user = userRepository.findByEmailWithRoles(email).orElseThrow(() -> new UserNotFoundException("User not found with email: "+ email));
@@ -52,8 +55,10 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter{
                         authorities.add(new SimpleGrantedAuthority(permission.getName()));
                     }
                 }
+                System.out.println("Authorities: " + authorities);
 
                 Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
+                
                 System.out.println("authentication " + authentication);
                 if(SecurityContextHolder.getContext().getAuthentication() == null){
                     SecurityContextHolder.getContext().setAuthentication(authentication);
