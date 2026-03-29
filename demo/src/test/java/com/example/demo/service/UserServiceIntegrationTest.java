@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.dto.UserRequestDTO;
 import com.example.demo.entity.User;
@@ -15,7 +16,9 @@ import com.example.demo.exception.DuplicateEmailException;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.respository.UserRepository;
 
+
 @SpringBootTest
+@ActiveProfiles("test")
 @Transactional
 public class UserServiceIntegrationTest {
 
