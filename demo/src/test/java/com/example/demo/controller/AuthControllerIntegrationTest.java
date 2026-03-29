@@ -160,6 +160,7 @@ public class AuthControllerIntegrationTest {
         MvcResult response = mockMvc.perform(post("/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(loginString))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -232,6 +233,7 @@ public class AuthControllerIntegrationTest {
         MvcResult response = mockMvc.perform(post("/auth/login")
                                     .contentType(MediaType.APPLICATION_JSON)
                                     .content(loginString))
+                                    .andDo(print())
                                     .andExpect(status().isOk())
                                     .andReturn();
 

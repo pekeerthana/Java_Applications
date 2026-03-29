@@ -15,6 +15,7 @@ import com.example.demo.respository.RoleRepository;
 import com.example.demo.respository.UserRepository;
 import com.example.demo.exception.DuplicateEmailException;
 import com.example.demo.exception.UserNotFoundException;
+import com.example.demo.mapper.UserMapper;
 
 @Service
 public class UserService {
@@ -22,11 +23,15 @@ public class UserService {
     private final UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
+    private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository,PasswordEncoder passwordEncoder,RoleRepository roleRepository){
+
+    public UserService(UserRepository userRepository,PasswordEncoder passwordEncoder,RoleRepository roleRepository,
+                        UserMapper userMapper){
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
+        this.userMapper = userMapper;
     }
 
     @Transactional
@@ -34,9 +39,7 @@ public class UserService {
         if(userRepository.existsByEmail(user.getEmail())){
             throw new DuplicateEmailException("Email is already in use");
         }
-        User newUser = new User();
-        newUser.setEmail(user.getEmail());
-        newUser.setName(user.getName());
+        User newUser = userMapper.toEntity(user);
         newUser.setPassword(passwordEncoder.encode(user.getPassword()));
 
         Role userRole = roleRepository
@@ -46,7 +49,7 @@ public class UserService {
         newUser.getRoles().add(userRole);
         
         User savedUser = userRepository.save(newUser);
-        UserResponseDTO userRes = new UserResponseDTO(savedUser.getId(),savedUser.getName(),savedUser.getEmail(),savedUser.getCreatedAt());
+        UserResponseDTO userRes = userMapper.toDTO(savedUser);
         return userRes;
     }
     
