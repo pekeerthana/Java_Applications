@@ -48,9 +48,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/opc/
-            docker build -t my-app .
-            docker stop my-app || true
-            docker rm my-app || true
-            docker run -d -p 8080:8080 \
-            --env-file .env \
-            --name my-app my-app
+            docker compose down || true
+            docker compose build
+            docker compose up -d
