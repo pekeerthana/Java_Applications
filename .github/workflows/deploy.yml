@@ -24,7 +24,6 @@ jobs:
       #Build JAR
       - name: Build JAR
         run: |
-          cd User-Management-BU
           mvn clean package
       
       #Copy JAR to server
@@ -34,7 +33,7 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "User-Management-BU/target/*.jar"
+          source: "target/*.jar"
           target: "/home/opc/"
       
       #Deploy on server
