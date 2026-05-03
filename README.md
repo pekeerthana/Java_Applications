@@ -188,7 +188,7 @@ src/
             ├── security/          # JWT & Spring Security config
             ├── service/           # Business logic
             ├── DataInitializer.java   # Seeds default roles and users
-            └── DemoApplication.java   # Application entry point
+            └── DemoApplication.java  # Application entry point
 ```
 
 ---
