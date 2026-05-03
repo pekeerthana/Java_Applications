@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -83,5 +85,17 @@ public class UserController  {
     public ResponseEntity<String> promoteUser(@PathVariable Long id) {
         return ResponseEntity.ok(userService.promoteToAdmin(id));
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/allusers")
+    public ResponseEntity<List<UserResponseDTO>> getMethodName() {
+
+        List<UserResponseDTO> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
+     
+        
+    }
+    
+    
     
 }
