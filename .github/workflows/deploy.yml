@@ -37,7 +37,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "target/*.jar"
-          target: "/home/opc/target"
+          target: "/home/opc/"
       
       #Deploy on server
       - name: Restart Docker container on server
@@ -48,7 +48,10 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/opc/
+
+            mv *.jar app.jar || true
+
             docker rm -f my-app || true
             docker compose down || true
             docker compose build --no-cache
-            docker compose up -d --build
+            docker compose up -d
