@@ -14,7 +14,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build JAR
-        run: mvn clean package
+        run: |
+          cd User-Management-BU
+          mvn clean package
 
       - name: Copy JAR to server
         uses: appleboy/scp-action@v0.1.7
@@ -22,7 +24,7 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "target/*.jar"
+          source: "User-Management-BU/target/*.jar"
           target: "/home/opc/"
 
       - name: Restart Docker container on server
@@ -32,7 +34,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/opc/app
+            cd /home/opc/
             docker build -t my-app .
             docker stop my-app || true
             docker rm my-app || true
