@@ -10,18 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
+
+      #Setup java
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
+
+      #Build JAR
       - name: Build JAR
         run: |
           cd User-Management-BU
           mvn clean package
-
+      
+      #Copy JAR to server
       - name: Copy JAR to server
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -30,7 +36,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "User-Management-BU/target/*.jar"
           target: "/home/opc/"
-
+      
+      #Deploy on server
       - name: Restart Docker container on server
         uses: appleboy/ssh-action@v0.1.7
         with:
