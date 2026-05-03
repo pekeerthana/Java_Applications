@@ -43,7 +43,7 @@ public class UserController  {
     }
     
     @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long id) {
 
         UserResponseDTO user = userService.getById(id);
@@ -87,7 +87,7 @@ public class UserController  {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/allusers")
+    @GetMapping("/users/all")
     public ResponseEntity<List<UserResponseDTO>> getUsers() {
 
         List<UserResponseDTO> users = userService.getAllUsers();
