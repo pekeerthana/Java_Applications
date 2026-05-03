@@ -25,6 +25,9 @@ jobs:
       - name: Build JAR
         run: |
           mvn clean package
+      # - name: Debug JAR
+      #   run: |
+      #     ls -l target/
       
       #Copy JAR to server
       - name: Copy JAR to server
