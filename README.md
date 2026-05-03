@@ -165,7 +165,7 @@ The application is deployed on **Oracle Cloud Infrastructure (OCI)** free tier:
 - **Nginx** is configured as a reverse proxy to route incoming traffic to the Spring Boot container
 - Environment variables are managed via the OCI instance configuration
 
-Added deploy.yml to automate the CI/CD pipeline whenever pushed to main branch
+Added **deploy.yml** to automate the CI/CD pipeline whenever pushed to main branch
 
 ---
 
