@@ -196,4 +196,4 @@ src/
 ## Author
 
 **Keerthana Peddireddy**
-[LinkedIn](https://www.linkedin.com/in/keerthana-reddy-000/) · [GitHub](https://github.com/pekeerthana)
+[LinkedIn](https://www.linkedin.com/in/keerthana-reddy-000/)·[GitHub](https://github.com/pekeerthana)
