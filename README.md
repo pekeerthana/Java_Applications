@@ -13,6 +13,7 @@ A production-deployed Spring Boot REST API with JWT authentication, Role-Based A
 - Dockerized application and PostgreSQL database
 - Nginx configured as a reverse proxy
 - Deployed to Oracle Cloud Infrastructure (OCI) free tier
+- Automated CI/CD pipeline using github actions workflows.
 
 ---
 
