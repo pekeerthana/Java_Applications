@@ -25,7 +25,7 @@ public class LoginService {
 
     public String login(LoginRequestDTO loginRequest){
         User user = userRepository.findByEmail(loginRequest.getEmail())
-                    .orElseThrow(() -> new BadCredentialsException("User not found with email: "+ loginRequest.getEmail()));
+                    .orElseThrow(() -> new BadCredentialsException("Invalid Credentials"));
 
         if(!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) throw new BadCredentialsException("Invalid credentials");
 

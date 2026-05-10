@@ -84,7 +84,8 @@ public class UserControllerTest {
                 .content(request))
 
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value("name should not be blank"));
+                .andExpect(jsonPath("$.message").value("name should not be blank"))
+                .andDo(print());
         
         verify(userService,never()).createUser(any());
 

@@ -9,10 +9,10 @@ public class LoginRequestDTO {
         this.email = email;
         this.password = password;
     }
-    @NotBlank
+    @NotBlank(message = "email must not be blank")
     @Email
     private String email;
-    @NotBlank
+    @NotBlank(message = "password must not be blank")
     private String password;
 
     public String getEmail() {
