@@ -28,6 +28,7 @@ import com.example.demo.dto.UserRequestDTO;
 import com.example.demo.dto.UserResponseDTO;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
+import com.example.demo.enums.RoleType;
 import com.example.demo.exception.DuplicateEmailException;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.mapper.UserMapper;
@@ -250,6 +251,37 @@ public class UserServiceTest {
     }
 
     @Test
+    public void promoteToAdmin_AlreadyAdmin(){
+
+        Long id = 1L;
+        Role userRole = new Role();
+        userRole.setName(RoleType.ROLE_ADMIN.name());
+
+        Set<Role> roles = new HashSet<>();
+        roles.add(userRole);
+
+        User user = new User();
+        user.setId(id);
+        user.setRoles(roles);
+
+        Role role = new Role();
+        role.setName("ROLE_ADMIN");
+
+        when(userRepository.findById(id)).thenReturn(Optional.of(user));
+        when(roleRepository.findByName("ROLE_ADMIN")).thenReturn(Optional.of(role));
+
+        String message = userService.promoteToAdmin(id);
+
+        assertEquals("User is already an admin", message);
+        assertTrue(
+            user.getRoles().stream()
+                .anyMatch(r -> r.getName().equals("ROLE_ADMIN"))
+        );
+        assertEquals(1, user.getRoles().size());
+
+    }
+
+    @Test
     public void deleteUser_Success() {
 
         Long id = 1L;
@@ -342,12 +374,6 @@ public class UserServiceTest {
 
         assertTrue(result.isEmpty());
     }
-
-
-
-
-
-
 
 
     

@@ -111,9 +111,14 @@ public class UserService {
                 .findByName("ROLE_ADMIN")
                 .orElseThrow(() -> new RuntimeException("Admin role not found"));
 
-        if (!user.getRoles().contains(adminRole)) {
+        boolean alreadyAdmin = user.getRoles().stream()
+                        .anyMatch(role -> role.getName().equals("ROLE_ADMIN"));
+
+        if (!alreadyAdmin) {
             user.getRoles().add(adminRole);
             userRepository.save(user);
+        } else {
+            return "User is already an admin";
         }
 
         return "User promoted to ADMIN successfully";
