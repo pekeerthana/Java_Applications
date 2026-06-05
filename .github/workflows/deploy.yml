@@ -23,8 +23,7 @@ jobs:
 
       #Build JAR
       - name: Build JAR
-        run: |
-          mvn clean package
+        run: mvn clean package
       # - name: Debug JAR
       #   run: |
       #     ls -l target/
